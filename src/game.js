@@ -1,30 +1,29 @@
-import { GameLayout } from './game-layout';
-import { useDispatch } from 'react-redux';
-import { handlerReset } from './handlers';
 import { Component } from 'react';
-
-export const Game = () => {
-	const dispatch = useDispatch();
-
-	const onClickReset = () => handlerReset(dispatch);
-
-	return <GameLayout onClickReset={onClickReset} />;
-};
-
-export class GameOld extends Component {
-	onClickReset() {
-		handlerReset(dispatch);
-	}
-
+import { connect } from 'react-redux';
+import { Information, Field } from './components';
+import { handlerReset } from './handlers';
+import styles from './game.module.css';
+class GameContainer extends Component {
 	render() {
+		const { onGameReset } = this.props;
+
 		return (
-			<div className={styles.game}>
+			<div className="text-center">
 				<Information />
 				<Field />
-				<button className={styles['button-reset']} onClick={this.onClickReset}>
+				<button
+					className="p-2 text-xl bg-teal-300 cursor-pointer"
+					onClick={onGameReset}
+				>
 					Начать заново
 				</button>
 			</div>
 		);
 	}
 }
+
+const mapDispatchToProps = (dispatch) => ({
+	onGameReset: () => handlerReset(dispatch),
+});
+
+export const Game = connect(null, mapDispatchToProps)(GameContainer);

@@ -1,18 +1,26 @@
-import { InformationLayout } from './information-layout';
-import { getCurrentInfoGameJSX } from '../../utils';
-import { useSelector } from 'react-redux';
+import { Component } from 'react';
+import { connect } from 'react-redux';
 import { selectCurrentPlayer, selectIsDraw, selectIsGameEnded } from '../../selectors';
+import { getCurrentInfoGameJSX } from '../../utils';
+import styles from './information.module.css';
+class InformationContainer extends Component {
+	render() {
+		const { currentPlayer, isGameEnded, isDraw } = this.props;
 
-export const Information = () => {
-	const currentPlayer = useSelector(selectCurrentPlayer);
-	const isDraw = useSelector(selectIsDraw);
-	const isGameEnded = useSelector(selectIsGameEnded);
+		const currentInfoGameJSX = getCurrentInfoGameJSX(
+			currentPlayer,
+			isGameEnded,
+			isDraw,
+		);
 
-	const currentInfoGameJSX = getCurrentInfoGameJSX(currentPlayer, isGameEnded, isDraw);
+		return <div className="text-3xl">{currentInfoGameJSX}</div>;
+	}
+}
 
-	return (
-		<>
-			<InformationLayout>{currentInfoGameJSX}</InformationLayout>
-		</>
-	);
-};
+const mapStateToProps = (state) => ({
+	currentPlayer: selectCurrentPlayer(state),
+	isGameEnded: selectIsGameEnded(state),
+	isDraw: selectIsDraw(state),
+});
+
+export const Information = connect(mapStateToProps)(InformationContainer);
