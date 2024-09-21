@@ -2,7 +2,6 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { selectCurrentPlayer, selectIsDraw, selectIsGameEnded } from '../../selectors';
 import { getCurrentInfoGameJSX } from '../../utils';
-import styles from './information.module.css';
 class InformationContainer extends Component {
 	render() {
 		const { currentPlayer, isGameEnded, isDraw } = this.props;

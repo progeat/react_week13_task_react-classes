@@ -7,16 +7,15 @@ import {
 	selectIsDraw,
 } from '../../selectors';
 import { handlerClickCell } from '../../handlers';
-import styles from './field.module.css';
 class FieldContainer extends Component {
 	render() {
 		const { field, currentPlayer, isGameEnded, isDraw, onClickCell } = this.props;
 
 		return (
-			<div className="grid grid-rows-3 grid-flow-col gap-4">
-				{field.map((elem, index) => (
+			<div className="grid grid-cols-[1fr_150px_1fr] gap-4 p-3 grid-rows-[repeat(3,_142px)] m-[0_auto] mb-3 max-w-[490px]">
+				{field.map((cell, index) => (
 					<button
-						className="text-4xl bg-orange-200 cursor-pointer"
+						className="border border-black text-8xl bg-orange-100 cursor-pointer"
 						key={index}
 						onClick={() =>
 							onClickCell({
@@ -28,7 +27,7 @@ class FieldContainer extends Component {
 							})
 						}
 					>
-						{elem}
+						{cell}
 					</button>
 				))}
 			</div>
@@ -44,7 +43,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	onClickCell: (options) => handlerClickCell({ dispatch, ...options }),
+	onClickCell: (payload) => handlerClickCell({ dispatch, ...payload }),
 });
 
 export const Field = connect(mapStateToProps, mapDispatchToProps)(FieldContainer);

@@ -2,7 +2,6 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Information, Field } from './components';
 import { handlerReset } from './handlers';
-import styles from './game.module.css';
 class GameContainer extends Component {
 	render() {
 		const { onGameReset } = this.props;
@@ -12,7 +11,7 @@ class GameContainer extends Component {
 				<Information />
 				<Field />
 				<button
-					className="p-2 text-xl bg-teal-300 cursor-pointer"
+					className="p-2 border border-black text-xl bg-teal-300 cursor-pointer"
 					onClick={onGameReset}
 				>
 					Начать заново
